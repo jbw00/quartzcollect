@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hamusuta.quartzcollect.dao.TriggerDetailMapper">
+  <resultMap id="BaseResultMap" type="com.hamusuta.quartzcollect.modle.TriggerDetail">
+    <id column="trigger_id" jdbcType="INTEGER" property="triggerId" />
+    <result column="trigger_name" jdbcType="VARCHAR" property="triggerName" />
+    <result column="trigger_group" jdbcType="VARCHAR" property="triggerGroup" />
+    <result column="cron_expression" jdbcType="VARCHAR" property="cronExpression" />
+    <result column="creat_time" jdbcType="DATE" property="creatTime" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    trigger_id, trigger_name, trigger_group, cron_expression, creat_time
+  </sql>
+  <select id="selectByExample" parameterType="com.hamusuta.quartzcollect.modle.TriggerDetailExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from trigger_detail
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from trigger_detail
+    where trigger_id = #{triggerId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from trigger_detail
+    where trigger_id = #{triggerId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.hamusuta.quartzcollect.modle.TriggerDetailExample">
+    delete from trigger_detail
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.hamusuta.quartzcollect.modle.TriggerDetail">
+    insert into trigger_detail (trigger_id, trigger_name, trigger_group, 
+      cron_expression, creat_time)
+    values (#{triggerId,jdbcType=INTEGER}, #{triggerName,jdbcType=VARCHAR}, #{triggerGroup,jdbcType=VARCHAR}, 
+      #{cronExpression,jdbcType=VARCHAR}, #{creatTime,jdbcType=DATE})
+  </insert>
+  <insert id="insertSelective" parameterType="com.hamusuta.quartzcollect.modle.TriggerDetail">
+    insert into trigger_detail
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="triggerId != null">
+        trigger_id,
+      </if>
+      <if test="triggerName != null">
+        trigger_name,
+      </if>
+      <if test="triggerGroup != null">
+        trigger_group,
+      </if>
+      <if test="cronExpression != null">
+        cron_expression,
+      </if>
+      <if test="creatTime != null">
+        creat_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="triggerId != null">
+        #{triggerId,jdbcType=INTEGER},
+      </if>
+      <if test="triggerName != null">
+        #{triggerName,jdbcType=VARCHAR},
+      </if>
+      <if test="triggerGroup != null">
+        #{triggerGroup,jdbcType=VARCHAR},
+      </if>
+      <if test="cronExpression != null">
+        #{cronExpression,jdbcType=VARCHAR},
+      </if>
+      <if test="creatTime != null">
+        #{creatTime,jdbcType=DATE},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.hamusuta.quartzcollect.modle.TriggerDetailExample" resultType="java.lang.Long">
+    select count(*) from trigger_detail
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update trigger_detail
+    <set>
+      <if test="record.triggerId != null">
+        trigger_id = #{record.triggerId,jdbcType=INTEGER},
+      </if>
+      <if test="record.triggerName != null">
+        trigger_name = #{record.triggerName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.triggerGroup != null">
+        trigger_group = #{record.triggerGroup,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cronExpression != null">
+        cron_expression = #{record.cronExpression,jdbcType=VARCHAR},
+      </if>
+      <if test="record.creatTime != null">
+        creat_time = #{record.creatTime,jdbcType=DATE},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update trigger_detail
+    set trigger_id = #{record.triggerId,jdbcType=INTEGER},
+      trigger_name = #{record.triggerName,jdbcType=VARCHAR},
+      trigger_group = #{record.triggerGroup,jdbcType=VARCHAR},
+      cron_expression = #{record.cronExpression,jdbcType=VARCHAR},
+      creat_time = #{record.creatTime,jdbcType=DATE}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hamusuta.quartzcollect.modle.TriggerDetail">
+    update trigger_detail
+    <set>
+      <if test="triggerName != null">
+        trigger_name = #{triggerName,jdbcType=VARCHAR},
+      </if>
+      <if test="triggerGroup != null">
+        trigger_group = #{triggerGroup,jdbcType=VARCHAR},
+      </if>
+      <if test="cronExpression != null">
+        cron_expression = #{cronExpression,jdbcType=VARCHAR},
+      </if>
+      <if test="creatTime != null">
+        creat_time = #{creatTime,jdbcType=DATE},
+      </if>
+    </set>
+    where trigger_id = #{triggerId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hamusuta.quartzcollect.modle.TriggerDetail">
+    update trigger_detail
+    set trigger_name = #{triggerName,jdbcType=VARCHAR},
+      trigger_group = #{triggerGroup,jdbcType=VARCHAR},
+      cron_expression = #{cronExpression,jdbcType=VARCHAR},
+      creat_time = #{creatTime,jdbcType=DATE}
+    where trigger_id = #{triggerId,jdbcType=INTEGER}
+  </update>
+</mapper>

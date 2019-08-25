@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hamusuta.quartzcollect.dao.JobDetailMapper">
+  <resultMap id="BaseResultMap" type="com.hamusuta.quartzcollect.modle.JobDetail">
+    <id column="job_id" jdbcType="INTEGER" property="jobId" />
+    <result column="job_name" jdbcType="INTEGER" property="jobName" />
+    <result column="job_group" jdbcType="VARCHAR" property="jobGroup" />
+    <result column="job_type" jdbcType="INTEGER" property="jobType" />
+    <result column="job_class_name" jdbcType="VARCHAR" property="jobClassName" />
+    <result column="job_trigger" jdbcType="INTEGER" property="jobTrigger" />
+    <result column="job_status" jdbcType="INTEGER" property="jobStatus" />
+    <result column="creat_time" jdbcType="DATE" property="creatTime" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    job_id, job_name, job_group, job_type, job_class_name, job_trigger, job_status, creat_time
+  </sql>
+  <select id="selectByExample" parameterType="com.hamusuta.quartzcollect.modle.JobDetailExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from job_detail
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from job_detail
+    where job_id = #{jobId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from job_detail
+    where job_id = #{jobId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.hamusuta.quartzcollect.modle.JobDetailExample">
+    delete from job_detail
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.hamusuta.quartzcollect.modle.JobDetail">
+    insert into job_detail (job_id, job_name, job_group, 
+      job_type, job_class_name, job_trigger, 
+      job_status, creat_time)
+    values (#{jobId,jdbcType=INTEGER}, #{jobName,jdbcType=INTEGER}, #{jobGroup,jdbcType=VARCHAR}, 
+      #{jobType,jdbcType=INTEGER}, #{jobClassName,jdbcType=VARCHAR}, #{jobTrigger,jdbcType=INTEGER}, 
+      #{jobStatus,jdbcType=INTEGER}, #{creatTime,jdbcType=DATE})
+  </insert>
+  <insert id="insertSelective" parameterType="com.hamusuta.quartzcollect.modle.JobDetail">
+    insert into job_detail
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="jobId != null">
+        job_id,
+      </if>
+      <if test="jobName != null">
+        job_name,
+      </if>
+      <if test="jobGroup != null">
+        job_group,
+      </if>
+      <if test="jobType != null">
+        job_type,
+      </if>
+      <if test="jobClassName != null">
+        job_class_name,
+      </if>
+      <if test="jobTrigger != null">
+        job_trigger,
+      </if>
+      <if test="jobStatus != null">
+        job_status,
+      </if>
+      <if test="creatTime != null">
+        creat_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="jobId != null">
+        #{jobId,jdbcType=INTEGER},
+      </if>
+      <if test="jobName != null">
+        #{jobName,jdbcType=INTEGER},
+      </if>
+      <if test="jobGroup != null">
+        #{jobGroup,jdbcType=VARCHAR},
+      </if>
+      <if test="jobType != null">
+        #{jobType,jdbcType=INTEGER},
+      </if>
+      <if test="jobClassName != null">
+        #{jobClassName,jdbcType=VARCHAR},
+      </if>
+      <if test="jobTrigger != null">
+        #{jobTrigger,jdbcType=INTEGER},
+      </if>
+      <if test="jobStatus != null">
+        #{jobStatus,jdbcType=INTEGER},
+      </if>
+      <if test="creatTime != null">
+        #{creatTime,jdbcType=DATE},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.hamusuta.quartzcollect.modle.JobDetailExample" resultType="java.lang.Long">
+    select count(*) from job_detail
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update job_detail
+    <set>
+      <if test="record.jobId != null">
+        job_id = #{record.jobId,jdbcType=INTEGER},
+      </if>
+      <if test="record.jobName != null">
+        job_name = #{record.jobName,jdbcType=INTEGER},
+      </if>
+      <if test="record.jobGroup != null">
+        job_group = #{record.jobGroup,jdbcType=VARCHAR},
+      </if>
+      <if test="record.jobType != null">
+        job_type = #{record.jobType,jdbcType=INTEGER},
+      </if>
+      <if test="record.jobClassName != null">
+        job_class_name = #{record.jobClassName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.jobTrigger != null">
+        job_trigger = #{record.jobTrigger,jdbcType=INTEGER},
+      </if>
+      <if test="record.jobStatus != null">
+        job_status = #{record.jobStatus,jdbcType=INTEGER},
+      </if>
+      <if test="record.creatTime != null">
+        creat_time = #{record.creatTime,jdbcType=DATE},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update job_detail
+    set job_id = #{record.jobId,jdbcType=INTEGER},
+      job_name = #{record.jobName,jdbcType=INTEGER},
+      job_group = #{record.jobGroup,jdbcType=VARCHAR},
+      job_type = #{record.jobType,jdbcType=INTEGER},
+      job_class_name = #{record.jobClassName,jdbcType=VARCHAR},
+      job_trigger = #{record.jobTrigger,jdbcType=INTEGER},
+      job_status = #{record.jobStatus,jdbcType=INTEGER},
+      creat_time = #{record.creatTime,jdbcType=DATE}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hamusuta.quartzcollect.modle.JobDetail">
+    update job_detail
+    <set>
+      <if test="jobName != null">
+        job_name = #{jobName,jdbcType=INTEGER},
+      </if>
+      <if test="jobGroup != null">
+        job_group = #{jobGroup,jdbcType=VARCHAR},
+      </if>
+      <if test="jobType != null">
+        job_type = #{jobType,jdbcType=INTEGER},
+      </if>
+      <if test="jobClassName != null">
+        job_class_name = #{jobClassName,jdbcType=VARCHAR},
+      </if>
+      <if test="jobTrigger != null">
+        job_trigger = #{jobTrigger,jdbcType=INTEGER},
+      </if>
+      <if test="jobStatus != null">
+        job_status = #{jobStatus,jdbcType=INTEGER},
+      </if>
+      <if test="creatTime != null">
+        creat_time = #{creatTime,jdbcType=DATE},
+      </if>
+    </set>
+    where job_id = #{jobId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hamusuta.quartzcollect.modle.JobDetail">
+    update job_detail
+    set job_name = #{jobName,jdbcType=INTEGER},
+      job_group = #{jobGroup,jdbcType=VARCHAR},
+      job_type = #{jobType,jdbcType=INTEGER},
+      job_class_name = #{jobClassName,jdbcType=VARCHAR},
+      job_trigger = #{jobTrigger,jdbcType=INTEGER},
+      job_status = #{jobStatus,jdbcType=INTEGER},
+      creat_time = #{creatTime,jdbcType=DATE}
+    where job_id = #{jobId,jdbcType=INTEGER}
+  </update>
+</mapper>

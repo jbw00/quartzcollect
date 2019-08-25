@@ -1,0 +1,24 @@
+#-------------------------------端口,访问项目名
+server:
+  port: 8089
+  servlet:
+    context-path: /quartzcollect
+
+spring:
+  main:
+    allow-bean-definition-overriding: true
+    #-------------------------------数据库连接
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/quartz
+    username: root
+    password: abcd1234
+    #--------------------------使用druid数据源
+    type: com.alibaba.druid.pool.DruidDataSource
+    druid:
+      initial-size: 1
+      max-active: 20
+      min-idle: 1
+      stat-view-servlet:
+        allow: true
+      test-on-borrow: true
