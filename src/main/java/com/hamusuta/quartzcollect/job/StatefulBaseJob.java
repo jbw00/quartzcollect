@@ -1,15 +1,17 @@
 package com.hamusuta.quartzcollect.job;
 
-import org.quartz.Job;
-import org.quartz.JobExecutionContext;
-import org.quartz.JobExecutionException;
+import org.quartz.*;
 
 /**
- * @author hamusuta
+ * @author Bowen
+ * 同步job任务，非必须不建议使用
+ *
  */
-public interface CamelBaseJob extends Job {
+@PersistJobDataAfterExecution
+@DisallowConcurrentExecution
+public interface StatefulBaseJob extends Job {
 
-    String JOB_GROUP = "camel";
+    String JOB_GROUP = "synchronous";
 
     /**
      * 若执行定时任务需要实现该方法

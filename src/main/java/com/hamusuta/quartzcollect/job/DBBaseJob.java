@@ -9,10 +9,10 @@ import org.quartz.JobExecutionException;
  */
 public interface DBBaseJob extends Job {
 
-    String job_group = "database";
+    String JOB_GROUP = "database";
 
     /**
-     * httpjob接口，若定时任务执行http任务需要实现该方法
+     * 若执行定时任务需要实现该方法
      * @param context 传递参数实体
      * @throws JobExecutionException
      */
