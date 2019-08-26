@@ -2,15 +2,14 @@ package com.hamusuta.quartzcollect.modle;
 
 import java.util.Date;
 
-/**
- * @author hamusuta
- */
 public class JobDetail {
     private Integer jobId;
 
-    private Integer jobName;
+    private String jobName;
 
     private String jobGroup;
+
+    private String jobMetric;
 
     private Integer jobType;
 
@@ -30,12 +29,12 @@ public class JobDetail {
         this.jobId = jobId;
     }
 
-    public Integer getJobName() {
+    public String getJobName() {
         return jobName;
     }
 
-    public void setJobName(Integer jobName) {
-        this.jobName = jobName;
+    public void setJobName(String jobName) {
+        this.jobName = jobName == null ? null : jobName.trim();
     }
 
     public String getJobGroup() {
@@ -44,6 +43,14 @@ public class JobDetail {
 
     public void setJobGroup(String jobGroup) {
         this.jobGroup = jobGroup == null ? null : jobGroup.trim();
+    }
+
+    public String getJobMetric() {
+        return jobMetric;
+    }
+
+    public void setJobMetric(String jobMetric) {
+        this.jobMetric = jobMetric == null ? null : jobMetric.trim();
     }
 
     public Integer getJobType() {

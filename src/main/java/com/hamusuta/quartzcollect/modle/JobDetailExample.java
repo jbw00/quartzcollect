@@ -202,52 +202,62 @@ public class JobDetailExample {
             return (Criteria) this;
         }
 
-        public Criteria andJobNameEqualTo(Integer value) {
+        public Criteria andJobNameEqualTo(String value) {
             addCriterion("job_name =", value, "jobName");
             return (Criteria) this;
         }
 
-        public Criteria andJobNameNotEqualTo(Integer value) {
+        public Criteria andJobNameNotEqualTo(String value) {
             addCriterion("job_name <>", value, "jobName");
             return (Criteria) this;
         }
 
-        public Criteria andJobNameGreaterThan(Integer value) {
+        public Criteria andJobNameGreaterThan(String value) {
             addCriterion("job_name >", value, "jobName");
             return (Criteria) this;
         }
 
-        public Criteria andJobNameGreaterThanOrEqualTo(Integer value) {
+        public Criteria andJobNameGreaterThanOrEqualTo(String value) {
             addCriterion("job_name >=", value, "jobName");
             return (Criteria) this;
         }
 
-        public Criteria andJobNameLessThan(Integer value) {
+        public Criteria andJobNameLessThan(String value) {
             addCriterion("job_name <", value, "jobName");
             return (Criteria) this;
         }
 
-        public Criteria andJobNameLessThanOrEqualTo(Integer value) {
+        public Criteria andJobNameLessThanOrEqualTo(String value) {
             addCriterion("job_name <=", value, "jobName");
             return (Criteria) this;
         }
 
-        public Criteria andJobNameIn(List<Integer> values) {
+        public Criteria andJobNameLike(String value) {
+            addCriterion("job_name like", value, "jobName");
+            return (Criteria) this;
+        }
+
+        public Criteria andJobNameNotLike(String value) {
+            addCriterion("job_name not like", value, "jobName");
+            return (Criteria) this;
+        }
+
+        public Criteria andJobNameIn(List<String> values) {
             addCriterion("job_name in", values, "jobName");
             return (Criteria) this;
         }
 
-        public Criteria andJobNameNotIn(List<Integer> values) {
+        public Criteria andJobNameNotIn(List<String> values) {
             addCriterion("job_name not in", values, "jobName");
             return (Criteria) this;
         }
 
-        public Criteria andJobNameBetween(Integer value1, Integer value2) {
+        public Criteria andJobNameBetween(String value1, String value2) {
             addCriterion("job_name between", value1, value2, "jobName");
             return (Criteria) this;
         }
 
-        public Criteria andJobNameNotBetween(Integer value1, Integer value2) {
+        public Criteria andJobNameNotBetween(String value1, String value2) {
             addCriterion("job_name not between", value1, value2, "jobName");
             return (Criteria) this;
         }
@@ -319,6 +329,76 @@ public class JobDetailExample {
 
         public Criteria andJobGroupNotBetween(String value1, String value2) {
             addCriterion("job_group not between", value1, value2, "jobGroup");
+            return (Criteria) this;
+        }
+
+        public Criteria andJobMetricIsNull() {
+            addCriterion("job_metric is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andJobMetricIsNotNull() {
+            addCriterion("job_metric is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andJobMetricEqualTo(String value) {
+            addCriterion("job_metric =", value, "jobMetric");
+            return (Criteria) this;
+        }
+
+        public Criteria andJobMetricNotEqualTo(String value) {
+            addCriterion("job_metric <>", value, "jobMetric");
+            return (Criteria) this;
+        }
+
+        public Criteria andJobMetricGreaterThan(String value) {
+            addCriterion("job_metric >", value, "jobMetric");
+            return (Criteria) this;
+        }
+
+        public Criteria andJobMetricGreaterThanOrEqualTo(String value) {
+            addCriterion("job_metric >=", value, "jobMetric");
+            return (Criteria) this;
+        }
+
+        public Criteria andJobMetricLessThan(String value) {
+            addCriterion("job_metric <", value, "jobMetric");
+            return (Criteria) this;
+        }
+
+        public Criteria andJobMetricLessThanOrEqualTo(String value) {
+            addCriterion("job_metric <=", value, "jobMetric");
+            return (Criteria) this;
+        }
+
+        public Criteria andJobMetricLike(String value) {
+            addCriterion("job_metric like", value, "jobMetric");
+            return (Criteria) this;
+        }
+
+        public Criteria andJobMetricNotLike(String value) {
+            addCriterion("job_metric not like", value, "jobMetric");
+            return (Criteria) this;
+        }
+
+        public Criteria andJobMetricIn(List<String> values) {
+            addCriterion("job_metric in", values, "jobMetric");
+            return (Criteria) this;
+        }
+
+        public Criteria andJobMetricNotIn(List<String> values) {
+            addCriterion("job_metric not in", values, "jobMetric");
+            return (Criteria) this;
+        }
+
+        public Criteria andJobMetricBetween(String value1, String value2) {
+            addCriterion("job_metric between", value1, value2, "jobMetric");
+            return (Criteria) this;
+        }
+
+        public Criteria andJobMetricNotBetween(String value1, String value2) {
+            addCriterion("job_metric not between", value1, value2, "jobMetric");
             return (Criteria) this;
         }
 

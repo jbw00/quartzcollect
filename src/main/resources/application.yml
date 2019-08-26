@@ -22,3 +22,8 @@ spring:
       stat-view-servlet:
         allow: true
       test-on-borrow: true
+
+#--------------------------配置任务执行地址
+job:
+  http:
+    baidu: www.baidu.com

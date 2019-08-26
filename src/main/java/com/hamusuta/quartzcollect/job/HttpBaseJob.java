@@ -9,6 +9,7 @@ import org.quartz.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 
 import java.util.*;
@@ -16,13 +17,13 @@ import java.util.*;
 /**
  * @author hamusuta
  */
-public class HttpBaseJob implements Job {
+@Component
+public abstract class HttpBaseJob implements Job {
 
     private static String JOB_GROUP = "http";
     private static Logger logger = LoggerFactory.getLogger(HttpBaseJob.class);
-
-    @Autowired
-    private PushDataUtil pushDataUtil;
+    protected Integer step = 300;
+    protected String tags = null;
 
     /**
      * Http定时任务实现方法
@@ -48,37 +49,13 @@ public class HttpBaseJob implements Job {
      * @param detail
      * @return
      */
-    public HashMap<String, Object> getResult(JobDetail detail){
-        HashMap<String, Object> resultMap = new HashMap();
-
-        //TODO-bw 实现httpjob获取值相关操作 非必传参数如请求地址请在配置文件中配置
-        //String url = String.valueOf(detail.getJobDataMap().get("URL"));
-        return resultMap;
-    }
+    protected abstract HashMap<String, Object> getResult(JobDetail detail);
 
     /**
      * 根据重写方法解析告警/指标内容并推送
      * @param detail
      * @param resultMap
      */
-    public void analysisResult(JobDetail detail, HashMap resultMap){
-        String job_metric = String.valueOf(detail.getJobDataMap().get("JOB_METRIC"));
-        List<Integer> metricsId = JobUtil.getMetrics(job_metric);
-        //TODO-bw 实现解析返回值逻辑
-        String metric = null;
-        String endpoint = null;
-        Integer step = 300;
-        String tags =null;
-        Double value = 0.0;
-        Date pushDate = TimeUtil.getPushDate();
-
-        //TODO-bw 实现falconvo构建及推送
-        /* 推送示例
-        FalconVo falconVo = pushDataUtil.voConstructor(pushDate, metric, value, tags, step, endpoint);
-        List<FalconVo> pushList = new ArrayList();
-        pushList.add(falconVo);
-        pushDataUtil.pushToFalcon(pushList);
-        */
-    }
+    protected abstract void analysisResult(JobDetail detail, HashMap resultMap);
 
 }

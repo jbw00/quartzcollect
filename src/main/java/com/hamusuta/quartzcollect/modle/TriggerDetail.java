@@ -2,9 +2,6 @@ package com.hamusuta.quartzcollect.modle;
 
 import java.util.Date;
 
-/**
- * @author hamusuta
- */
 public class TriggerDetail {
     private Integer triggerId;
 

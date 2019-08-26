@@ -3,8 +3,9 @@
 <mapper namespace="com.hamusuta.quartzcollect.dao.JobDetailMapper">
   <resultMap id="BaseResultMap" type="com.hamusuta.quartzcollect.modle.JobDetail">
     <id column="job_id" jdbcType="INTEGER" property="jobId" />
-    <result column="job_name" jdbcType="INTEGER" property="jobName" />
+    <result column="job_name" jdbcType="VARCHAR" property="jobName" />
     <result column="job_group" jdbcType="VARCHAR" property="jobGroup" />
+    <result column="job_metric" jdbcType="VARCHAR" property="jobMetric" />
     <result column="job_type" jdbcType="INTEGER" property="jobType" />
     <result column="job_class_name" jdbcType="VARCHAR" property="jobClassName" />
     <result column="job_trigger" jdbcType="INTEGER" property="jobTrigger" />
@@ -70,7 +71,8 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    job_id, job_name, job_group, job_type, job_class_name, job_trigger, job_status, creat_time
+    job_id, job_name, job_group, job_metric, job_type, job_class_name, job_trigger, job_status, 
+    creat_time
   </sql>
   <select id="selectByExample" parameterType="com.hamusuta.quartzcollect.modle.JobDetailExample" resultMap="BaseResultMap">
     select
@@ -104,11 +106,13 @@
   </delete>
   <insert id="insert" parameterType="com.hamusuta.quartzcollect.modle.JobDetail">
     insert into job_detail (job_id, job_name, job_group, 
-      job_type, job_class_name, job_trigger, 
-      job_status, creat_time)
-    values (#{jobId,jdbcType=INTEGER}, #{jobName,jdbcType=INTEGER}, #{jobGroup,jdbcType=VARCHAR}, 
-      #{jobType,jdbcType=INTEGER}, #{jobClassName,jdbcType=VARCHAR}, #{jobTrigger,jdbcType=INTEGER}, 
-      #{jobStatus,jdbcType=INTEGER}, #{creatTime,jdbcType=DATE})
+      job_metric, job_type, job_class_name, 
+      job_trigger, job_status, creat_time
+      )
+    values (#{jobId,jdbcType=INTEGER}, #{jobName,jdbcType=VARCHAR}, #{jobGroup,jdbcType=VARCHAR}, 
+      #{jobMetric,jdbcType=VARCHAR}, #{jobType,jdbcType=INTEGER}, #{jobClassName,jdbcType=VARCHAR}, 
+      #{jobTrigger,jdbcType=INTEGER}, #{jobStatus,jdbcType=INTEGER}, #{creatTime,jdbcType=DATE}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.hamusuta.quartzcollect.modle.JobDetail">
     insert into job_detail
@@ -121,6 +125,9 @@
       </if>
       <if test="jobGroup != null">
         job_group,
+      </if>
+      <if test="jobMetric != null">
+        job_metric,
       </if>
       <if test="jobType != null">
         job_type,
@@ -143,10 +150,13 @@
         #{jobId,jdbcType=INTEGER},
       </if>
       <if test="jobName != null">
-        #{jobName,jdbcType=INTEGER},
+        #{jobName,jdbcType=VARCHAR},
       </if>
       <if test="jobGroup != null">
         #{jobGroup,jdbcType=VARCHAR},
+      </if>
+      <if test="jobMetric != null">
+        #{jobMetric,jdbcType=VARCHAR},
       </if>
       <if test="jobType != null">
         #{jobType,jdbcType=INTEGER},
@@ -178,10 +188,13 @@
         job_id = #{record.jobId,jdbcType=INTEGER},
       </if>
       <if test="record.jobName != null">
-        job_name = #{record.jobName,jdbcType=INTEGER},
+        job_name = #{record.jobName,jdbcType=VARCHAR},
       </if>
       <if test="record.jobGroup != null">
         job_group = #{record.jobGroup,jdbcType=VARCHAR},
+      </if>
+      <if test="record.jobMetric != null">
+        job_metric = #{record.jobMetric,jdbcType=VARCHAR},
       </if>
       <if test="record.jobType != null">
         job_type = #{record.jobType,jdbcType=INTEGER},
@@ -206,8 +219,9 @@
   <update id="updateByExample" parameterType="map">
     update job_detail
     set job_id = #{record.jobId,jdbcType=INTEGER},
-      job_name = #{record.jobName,jdbcType=INTEGER},
+      job_name = #{record.jobName,jdbcType=VARCHAR},
       job_group = #{record.jobGroup,jdbcType=VARCHAR},
+      job_metric = #{record.jobMetric,jdbcType=VARCHAR},
       job_type = #{record.jobType,jdbcType=INTEGER},
       job_class_name = #{record.jobClassName,jdbcType=VARCHAR},
       job_trigger = #{record.jobTrigger,jdbcType=INTEGER},
@@ -221,10 +235,13 @@
     update job_detail
     <set>
       <if test="jobName != null">
-        job_name = #{jobName,jdbcType=INTEGER},
+        job_name = #{jobName,jdbcType=VARCHAR},
       </if>
       <if test="jobGroup != null">
         job_group = #{jobGroup,jdbcType=VARCHAR},
+      </if>
+      <if test="jobMetric != null">
+        job_metric = #{jobMetric,jdbcType=VARCHAR},
       </if>
       <if test="jobType != null">
         job_type = #{jobType,jdbcType=INTEGER},
@@ -246,8 +263,9 @@
   </update>
   <update id="updateByPrimaryKey" parameterType="com.hamusuta.quartzcollect.modle.JobDetail">
     update job_detail
-    set job_name = #{jobName,jdbcType=INTEGER},
+    set job_name = #{jobName,jdbcType=VARCHAR},
       job_group = #{jobGroup,jdbcType=VARCHAR},
+      job_metric = #{jobMetric,jdbcType=VARCHAR},
       job_type = #{jobType,jdbcType=INTEGER},
       job_class_name = #{jobClassName,jdbcType=VARCHAR},
       job_trigger = #{jobTrigger,jdbcType=INTEGER},

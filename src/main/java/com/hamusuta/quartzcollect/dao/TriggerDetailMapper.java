@@ -5,9 +5,6 @@ import com.hamusuta.quartzcollect.modle.TriggerDetailExample;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
-/**
- * @author hamusuta
- */
 public interface TriggerDetailMapper {
     long countByExample(TriggerDetailExample example);
 

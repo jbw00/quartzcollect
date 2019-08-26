@@ -5,9 +5,6 @@ import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
-/**
- * @author hamusuta
- */
 public class TriggerDetailExample {
     protected String orderByClause;
 

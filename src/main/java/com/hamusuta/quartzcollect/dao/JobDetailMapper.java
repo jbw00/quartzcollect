@@ -5,9 +5,6 @@ import com.hamusuta.quartzcollect.modle.JobDetailExample;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
-/**
- * @author hamusuta
- */
 public interface JobDetailMapper {
     long countByExample(JobDetailExample example);
 
