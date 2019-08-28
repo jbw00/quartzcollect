@@ -18,10 +18,15 @@ import java.util.*;
  * @author hamusuta
  */
 @Component
-public abstract class HttpBaseJob implements Job {
+public abstract class BaseJob implements Job {
 
-    private static String JOB_GROUP = "http";
-    private static Logger logger = LoggerFactory.getLogger(HttpBaseJob.class);
+    public static final String JOB_GROUP_HTTP = "http";
+    public static final String JOB_GROUP_CAMLE = "http";
+    public static final String JOB_GROUP_DB = "http";
+
+    public static String JOB_GROUP = "";
+
+    private static Logger logger = LoggerFactory.getLogger(BaseJob.class);
     protected Integer step = 300;
     protected String tags = null;
 
@@ -36,12 +41,12 @@ public abstract class HttpBaseJob implements Job {
         String name = detail.getKey().getName();
         String group = detail.getKey().getGroup();
         if (!JOB_GROUP.equals(group)){throw new RuntimeException("执行任务与job组未对应，请检查实现的job类！");}
-        logger.info("==========================>Http任务：{}，组别{},任务开始！", name, group);
+        logger.info("==========================>{}任务：{}，组别{},任务开始！", JOB_GROUP, name, group);
         //获取结果值
         HashMap<String, Object> result = getResult(detail);
         //解析并推送
         analysisResult(detail, result);
-        logger.info("<==========================Http任务结束");
+        logger.info("<=========================={}任务结束", JOB_GROUP);
     }
 
     /**

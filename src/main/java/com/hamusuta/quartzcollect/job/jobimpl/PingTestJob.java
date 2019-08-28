@@ -1,6 +1,6 @@
 package com.hamusuta.quartzcollect.job.jobimpl;
 
-import com.hamusuta.quartzcollect.job.HttpBaseJob;
+import com.hamusuta.quartzcollect.job.BaseJob;
 import com.hamusuta.quartzcollect.util.DialingUtil;
 import com.hamusuta.quartzcollect.util.JobUtil;
 import com.hamusuta.quartzcollect.util.PushDataUtil;
@@ -20,7 +20,12 @@ import java.util.List;
  * @author hamusuta
  */
 @Component
-public class PingTestJob extends HttpBaseJob {
+public class PingTestJob extends BaseJob {
+
+    //初始化组别
+    static {
+        JOB_GROUP = JOB_GROUP_HTTP;
+    }
 
     @Autowired
     private PushDataUtil pushDataUtil;

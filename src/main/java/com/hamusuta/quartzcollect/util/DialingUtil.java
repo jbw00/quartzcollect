@@ -1,6 +1,5 @@
 package com.hamusuta.quartzcollect.util;
 
-import com.hamusuta.quartzcollect.job.HttpBaseJob;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.config.RequestConfig;
 import org.apache.http.client.methods.HttpGet;
@@ -18,7 +17,7 @@ import java.net.URL;
  */
 public class DialingUtil {
 
-    private static Logger logger = LoggerFactory.getLogger(HttpBaseJob.class);
+    private static Logger logger = LoggerFactory.getLogger(DialingUtil.class);
 
     private static final int CONNECT_TIME_OUT = 5 * 1000;
     private static final int REQUEST_TIME_OUT = 15 * 1000;
