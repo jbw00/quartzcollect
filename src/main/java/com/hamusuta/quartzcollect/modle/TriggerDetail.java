@@ -11,6 +11,8 @@ public class TriggerDetail {
 
     private String cronExpression;
 
+    private Integer triggerStep;
+
     private Date creatTime;
 
     public Integer getTriggerId() {
@@ -43,6 +45,14 @@ public class TriggerDetail {
 
     public void setCronExpression(String cronExpression) {
         this.cronExpression = cronExpression == null ? null : cronExpression.trim();
+    }
+
+    public Integer getTriggerStep() {
+        return triggerStep;
+    }
+
+    public void setTriggerStep(Integer triggerStep) {
+        this.triggerStep = triggerStep;
     }
 
     public Date getCreatTime() {

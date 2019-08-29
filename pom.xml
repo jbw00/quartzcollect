@@ -14,6 +14,7 @@
     <name>quartzcollect</name>
     <description>Demo for New Collect project</description>
 
+
     <properties>
         <java.version>1.8</java.version>
     </properties>
@@ -68,6 +69,20 @@
             <groupId>org.apache.httpcomponents</groupId>
             <artifactId>httpcore</artifactId>
             <version>4.4.10</version>
+        </dependency>
+
+        <!--pagehelper-->
+        <dependency>
+            <groupId>com.github.pagehelper</groupId>
+            <artifactId>pagehelper</artifactId>
+            <version>5.0.0</version>
+        </dependency>
+
+        <!--c3p0-->
+        <dependency>
+            <groupId>c3p0</groupId>
+            <artifactId>c3p0</artifactId>
+            <version>0.9.1.2</version>
         </dependency>
 
     </dependencies>

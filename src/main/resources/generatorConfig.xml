@@ -14,8 +14,8 @@
         </commentGenerator>
 
         <!-- 链接数据库的配置 -->
-        <jdbcConnection driverClass="com.mysql.jdbc.Driver" connectionURL="jdbc:mysql://localhost:3306/quartz" userId="root"
-                        password="abcd1234"/>
+        <jdbcConnection driverClass="com.mysql.jdbc.Driver" connectionURL="jdbc:mysql://192.168.137.143:3307/quartz" userId="root"
+                        password="test123456"/>
 
         <!-- 关于生成实体类的设置 -->
         <!-- targetPackage 生成代码的目标目录 -->

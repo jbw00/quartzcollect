@@ -24,7 +24,7 @@ public abstract class BaseJob implements Job {
     public static final String JOB_GROUP_CAMLE = "http";
     public static final String JOB_GROUP_DB = "http";
 
-    public static String JOB_GROUP = "";
+    public static String JOB_GROUP = "http";
 
     private static Logger logger = LoggerFactory.getLogger(BaseJob.class);
     protected Integer step = 300;

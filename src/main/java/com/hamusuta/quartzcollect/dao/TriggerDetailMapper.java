@@ -4,10 +4,7 @@ import com.hamusuta.quartzcollect.modle.TriggerDetail;
 import com.hamusuta.quartzcollect.modle.TriggerDetailExample;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
-import org.springframework.stereotype.Repository;
 
-
-@Repository
 public interface TriggerDetailMapper {
     long countByExample(TriggerDetailExample example);
 

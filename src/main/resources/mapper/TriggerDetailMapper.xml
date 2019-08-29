@@ -6,7 +6,8 @@
     <result column="trigger_name" jdbcType="VARCHAR" property="triggerName" />
     <result column="trigger_group" jdbcType="VARCHAR" property="triggerGroup" />
     <result column="cron_expression" jdbcType="VARCHAR" property="cronExpression" />
-    <result column="creat_time" jdbcType="DATE" property="creatTime" />
+    <result column="trigger_step" jdbcType="INTEGER" property="triggerStep" />
+    <result column="creat_time" jdbcType="TIMESTAMP" property="creatTime" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -67,7 +68,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    trigger_id, trigger_name, trigger_group, cron_expression, creat_time
+    trigger_id, trigger_name, trigger_group, cron_expression, trigger_step, creat_time
   </sql>
   <select id="selectByExample" parameterType="com.hamusuta.quartzcollect.modle.TriggerDetailExample" resultMap="BaseResultMap">
     select
@@ -101,9 +102,11 @@
   </delete>
   <insert id="insert" parameterType="com.hamusuta.quartzcollect.modle.TriggerDetail">
     insert into trigger_detail (trigger_id, trigger_name, trigger_group, 
-      cron_expression, creat_time)
+      cron_expression, trigger_step, creat_time
+      )
     values (#{triggerId,jdbcType=INTEGER}, #{triggerName,jdbcType=VARCHAR}, #{triggerGroup,jdbcType=VARCHAR}, 
-      #{cronExpression,jdbcType=VARCHAR}, #{creatTime,jdbcType=DATE})
+      #{cronExpression,jdbcType=VARCHAR}, #{triggerStep,jdbcType=INTEGER}, #{creatTime,jdbcType=TIMESTAMP}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.hamusuta.quartzcollect.modle.TriggerDetail">
     insert into trigger_detail
@@ -119,6 +122,9 @@
       </if>
       <if test="cronExpression != null">
         cron_expression,
+      </if>
+      <if test="triggerStep != null">
+        trigger_step,
       </if>
       <if test="creatTime != null">
         creat_time,
@@ -137,8 +143,11 @@
       <if test="cronExpression != null">
         #{cronExpression,jdbcType=VARCHAR},
       </if>
+      <if test="triggerStep != null">
+        #{triggerStep,jdbcType=INTEGER},
+      </if>
       <if test="creatTime != null">
-        #{creatTime,jdbcType=DATE},
+        #{creatTime,jdbcType=TIMESTAMP},
       </if>
     </trim>
   </insert>
@@ -163,8 +172,11 @@
       <if test="record.cronExpression != null">
         cron_expression = #{record.cronExpression,jdbcType=VARCHAR},
       </if>
+      <if test="record.triggerStep != null">
+        trigger_step = #{record.triggerStep,jdbcType=INTEGER},
+      </if>
       <if test="record.creatTime != null">
-        creat_time = #{record.creatTime,jdbcType=DATE},
+        creat_time = #{record.creatTime,jdbcType=TIMESTAMP},
       </if>
     </set>
     <if test="_parameter != null">
@@ -177,7 +189,8 @@
       trigger_name = #{record.triggerName,jdbcType=VARCHAR},
       trigger_group = #{record.triggerGroup,jdbcType=VARCHAR},
       cron_expression = #{record.cronExpression,jdbcType=VARCHAR},
-      creat_time = #{record.creatTime,jdbcType=DATE}
+      trigger_step = #{record.triggerStep,jdbcType=INTEGER},
+      creat_time = #{record.creatTime,jdbcType=TIMESTAMP}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -194,8 +207,11 @@
       <if test="cronExpression != null">
         cron_expression = #{cronExpression,jdbcType=VARCHAR},
       </if>
+      <if test="triggerStep != null">
+        trigger_step = #{triggerStep,jdbcType=INTEGER},
+      </if>
       <if test="creatTime != null">
-        creat_time = #{creatTime,jdbcType=DATE},
+        creat_time = #{creatTime,jdbcType=TIMESTAMP},
       </if>
     </set>
     where trigger_id = #{triggerId,jdbcType=INTEGER}
@@ -205,7 +221,8 @@
     set trigger_name = #{triggerName,jdbcType=VARCHAR},
       trigger_group = #{triggerGroup,jdbcType=VARCHAR},
       cron_expression = #{cronExpression,jdbcType=VARCHAR},
-      creat_time = #{creatTime,jdbcType=DATE}
+      trigger_step = #{triggerStep,jdbcType=INTEGER},
+      creat_time = #{creatTime,jdbcType=TIMESTAMP}
     where trigger_id = #{triggerId,jdbcType=INTEGER}
   </update>
 </mapper>

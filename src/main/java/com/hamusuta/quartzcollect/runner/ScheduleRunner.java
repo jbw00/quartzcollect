@@ -1,15 +1,19 @@
 package com.hamusuta.quartzcollect.runner;
 
 import com.hamusuta.quartzcollect.job.BaseJob;
+import com.hamusuta.quartzcollect.job.JobInt;
 import com.hamusuta.quartzcollect.modle.TriggerDetail;
 import com.hamusuta.quartzcollect.servic.JobService;
 import com.hamusuta.quartzcollect.servic.TriggerService;
 import com.hamusuta.quartzcollect.trigger.triggerimpl.CronTrigger;
 import org.quartz.*;
-import org.quartz.impl.StdSchedulerFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
+import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -22,16 +26,29 @@ import java.util.List;
 @Component
 public class ScheduleRunner implements ApplicationRunner {
 
+    private static Logger logger = LoggerFactory.getLogger(ScheduleRunner.class);
+
     @Autowired
     private CronTrigger cronTrigger;
+    //TODO-bw 预留simpletrigger的引入
+    /*@Autowired
+    private Simpletrigger simpletrigger;*/
     @Autowired
     private JobService jobService;
     @Autowired
     private TriggerService triggerService;
+    /**加入Qulifier注解，通过名称注入bean*/
+    @Autowired
+    @Qualifier("Scheduler")
+    private Scheduler scheduler;
+
+    private static final String CRON = "cron";
+    private static final String SIMPLE = "simple";
 
     @Override
+    @Order(3)
     public void run(ApplicationArguments args) throws Exception {
-        //TODO-bw 查询启用状态的任务并执行
+        //TODO-bw 查询启用状态的任务并执行 数量巨大时改造成rdis存取
         List<com.hamusuta.quartzcollect.modle.JobDetail> usefulJobDetail = jobService.getUsefulJobDetail();
         for (com.hamusuta.quartzcollect.modle.JobDetail jobDetail : usefulJobDetail) {
             Integer jobTriggerId = jobDetail.getJobTrigger();
@@ -42,7 +59,9 @@ public class ScheduleRunner implements ApplicationRunner {
                     jobDetail.getJobGroup(),
                     triggerDetail.getTriggerName(),
                     triggerDetail.getTriggerGroup(),
-                    triggerDetail.getCronExpression());
+                    triggerDetail.getCronExpression(),
+                    jobDetail.getJobMetrics()
+                    );
         }
     }
 
@@ -59,14 +78,20 @@ public class ScheduleRunner implements ApplicationRunner {
         String triggerName = String.valueOf(parmsList.get(3));
         String triggerGroup = String.valueOf(parmsList.get(4));
         String cronExpression = String.valueOf(parmsList.get(5));
+        String metric = String.valueOf(parmsList.get(6));
         //jobDetail
-        JobDetail jobDetail = getJobDetail(jobClassName, jobName, jobGroup);
+        JobDetail jobDetail = getJobDetail(jobClassName, jobName, jobGroup, metric);
         //Trigger
+        Trigger trigger = null;
         //TODO-bw 加入字段判断触发器类型从而实现不同的触发方式
-        Trigger trigger = cronTrigger.triggerBuilder(triggerName, triggerGroup, cronExpression);
+        if(CRON.equals(triggerGroup)) {
+            trigger = cronTrigger.triggerBuilder(triggerName, triggerGroup, cronExpression);
+        }else if(SIMPLE.equals(triggerGroup)){
+            //TODO-bw 预留simpletrigger的构建
+        }
         try{
             //创建scheduler
-            Scheduler scheduler = StdSchedulerFactory.getDefaultScheduler();
+            //Scheduler scheduler = StdSchedulerFactory.getDefaultScheduler();该创建为默认创建方式
             scheduler.scheduleJob(jobDetail, trigger);
             scheduler.start();
         }catch (Exception e){
@@ -81,14 +106,17 @@ public class ScheduleRunner implements ApplicationRunner {
      * @param jobGroup job组别
      * @return
      */
-    private JobDetail getJobDetail(String jobClassName, String jobName, String jobGroup){
+    private JobDetail getJobDetail(String jobClassName, String jobName, String jobGroup, String metric){
         JobDetail jobDetail = null;
         try {
             //获取job实现类并转化
-            Class<? extends BaseJob> aClass = (Class<? extends BaseJob>) Class.forName(jobClassName);
+            Class<?> naClass = Class.forName("com.hamusuta.quartzcollect.job.jobimpl."+ jobClassName);
+
+            Class<? extends BaseJob> aClass = (Class<? extends BaseJob>) naClass.newInstance().getClass();
             //创建job任务
-            jobDetail = JobBuilder.newJob(aClass).withIdentity(jobName, jobGroup).build();
+            jobDetail = JobBuilder.newJob(aClass).withIdentity(jobName, jobGroup).usingJobData("JOB_METRIC", metric).build();
         }catch (Exception e){
+            logger.error("===============================>"+e);
             throw new RuntimeException("无法加载"+jobClassName+"类别!");
         }
         return jobDetail;

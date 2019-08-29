@@ -29,6 +29,7 @@ public class CronTrigger implements BaseTrigger {
         String triggerGroup = String.valueOf(parmsList.get(1));
         String cronExpression = String.valueOf(parmsList.get(2));
         //cron构建
+        System.out.println(cronExpression);
         CronScheduleBuilder scheduleBuilder = CronScheduleBuilder.cronSchedule(cronExpression);
         //触发器构建
         org.quartz.CronTrigger trigger = TriggerBuilder.newTrigger().withIdentity(triggerName, triggerGroup)

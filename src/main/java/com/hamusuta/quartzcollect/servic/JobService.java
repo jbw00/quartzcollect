@@ -1,6 +1,8 @@
 package com.hamusuta.quartzcollect.servic;
 
+import com.github.pagehelper.PageInfo;
 import com.hamusuta.quartzcollect.modle.JobDetail;
+import com.hamusuta.quartzcollect.vo.JobAndTriggerVo;
 
 import java.util.List;
 
@@ -14,5 +16,11 @@ public interface JobService {
      * @return
      */
     List<JobDetail> getUsefulJobDetail();
+
+    /**
+     * 获取job关联Trigger的详细信息
+     * @return
+     */
+    PageInfo<JobAndTriggerVo> getJobAndTriggerDetails(Integer pageNum, Integer pageSize);
 
 }

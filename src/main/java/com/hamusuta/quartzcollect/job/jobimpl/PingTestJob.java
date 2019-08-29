@@ -29,7 +29,8 @@ public class PingTestJob extends BaseJob {
 
     @Autowired
     private PushDataUtil pushDataUtil;
-    @Value("job.http.baidu")
+
+    @Value("${job.http.baidu}")
     private String url;
 
     @Override
@@ -44,6 +45,7 @@ public class PingTestJob extends BaseJob {
 
     @Override
     protected void analysisResult(JobDetail detail, HashMap resultMap) {
+        //PushDataUtil pushDataUtil = new PushDataUtil();
         String job_metric = String.valueOf(detail.getJobDataMap().get("JOB_METRIC"));
         List<Integer> metricsId = JobUtil.getMetrics(job_metric);
         //TODO-bw 实现解析返回值逻辑 metric、endpoint由monitor 提供

@@ -10,9 +10,9 @@ spring:
     #-------------------------------数据库连接
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/quartz
+    url: jdbc:mysql://192.168.137.143:3307/quartz?useUnicode=true&characterEncoding=UTF-8
     username: root
-    password: abcd1234
+    password: test123456
     #--------------------------使用druid数据源
     type: com.alibaba.druid.pool.DruidDataSource
     druid:
@@ -23,7 +23,17 @@ spring:
         allow: true
       test-on-borrow: true
 
+#-------------------------------数据库链接扫描mapper
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
+  type-aliases-package: com.hamusuta.quartzcollect.model
+
 #--------------------------配置任务执行地址
 job:
   http:
     baidu: www.baidu.com
+
+#---------------------------模拟推送数据用户
+pushdata:
+  username: test
+  password: test

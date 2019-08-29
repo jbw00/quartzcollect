@@ -2,8 +2,6 @@ package com.hamusuta.quartzcollect.servic;
 
 import com.hamusuta.quartzcollect.modle.TriggerDetail;
 
-import java.util.List;
-
 /**
  * @author hamusuta
  */

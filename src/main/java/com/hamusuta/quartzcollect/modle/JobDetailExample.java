@@ -2,7 +2,6 @@ package com.hamusuta.quartzcollect.modle;
 
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.Iterator;
 import java.util.List;
 
 public class JobDetailExample {
@@ -104,32 +103,6 @@ public class JobDetailExample {
                 throw new RuntimeException("Between values for " + property + " cannot be null");
             }
             criteria.add(new Criterion(condition, value1, value2));
-        }
-
-        protected void addCriterionForJDBCDate(String condition, Date value, String property) {
-            if (value == null) {
-                throw new RuntimeException("Value for " + property + " cannot be null");
-            }
-            addCriterion(condition, new java.sql.Date(value.getTime()), property);
-        }
-
-        protected void addCriterionForJDBCDate(String condition, List<Date> values, String property) {
-            if (values == null || values.size() == 0) {
-                throw new RuntimeException("Value list for " + property + " cannot be null or empty");
-            }
-            List<java.sql.Date> dateList = new ArrayList<java.sql.Date>();
-            Iterator<Date> iter = values.iterator();
-            while (iter.hasNext()) {
-                dateList.add(new java.sql.Date(iter.next().getTime()));
-            }
-            addCriterion(condition, dateList, property);
-        }
-
-        protected void addCriterionForJDBCDate(String condition, Date value1, Date value2, String property) {
-            if (value1 == null || value2 == null) {
-                throw new RuntimeException("Between values for " + property + " cannot be null");
-            }
-            addCriterion(condition, new java.sql.Date(value1.getTime()), new java.sql.Date(value2.getTime()), property);
         }
 
         public Criteria andJobIdIsNull() {
@@ -332,76 +305,6 @@ public class JobDetailExample {
             return (Criteria) this;
         }
 
-        public Criteria andJobMetricIsNull() {
-            addCriterion("job_metric is null");
-            return (Criteria) this;
-        }
-
-        public Criteria andJobMetricIsNotNull() {
-            addCriterion("job_metric is not null");
-            return (Criteria) this;
-        }
-
-        public Criteria andJobMetricEqualTo(String value) {
-            addCriterion("job_metric =", value, "jobMetric");
-            return (Criteria) this;
-        }
-
-        public Criteria andJobMetricNotEqualTo(String value) {
-            addCriterion("job_metric <>", value, "jobMetric");
-            return (Criteria) this;
-        }
-
-        public Criteria andJobMetricGreaterThan(String value) {
-            addCriterion("job_metric >", value, "jobMetric");
-            return (Criteria) this;
-        }
-
-        public Criteria andJobMetricGreaterThanOrEqualTo(String value) {
-            addCriterion("job_metric >=", value, "jobMetric");
-            return (Criteria) this;
-        }
-
-        public Criteria andJobMetricLessThan(String value) {
-            addCriterion("job_metric <", value, "jobMetric");
-            return (Criteria) this;
-        }
-
-        public Criteria andJobMetricLessThanOrEqualTo(String value) {
-            addCriterion("job_metric <=", value, "jobMetric");
-            return (Criteria) this;
-        }
-
-        public Criteria andJobMetricLike(String value) {
-            addCriterion("job_metric like", value, "jobMetric");
-            return (Criteria) this;
-        }
-
-        public Criteria andJobMetricNotLike(String value) {
-            addCriterion("job_metric not like", value, "jobMetric");
-            return (Criteria) this;
-        }
-
-        public Criteria andJobMetricIn(List<String> values) {
-            addCriterion("job_metric in", values, "jobMetric");
-            return (Criteria) this;
-        }
-
-        public Criteria andJobMetricNotIn(List<String> values) {
-            addCriterion("job_metric not in", values, "jobMetric");
-            return (Criteria) this;
-        }
-
-        public Criteria andJobMetricBetween(String value1, String value2) {
-            addCriterion("job_metric between", value1, value2, "jobMetric");
-            return (Criteria) this;
-        }
-
-        public Criteria andJobMetricNotBetween(String value1, String value2) {
-            addCriterion("job_metric not between", value1, value2, "jobMetric");
-            return (Criteria) this;
-        }
-
         public Criteria andJobTypeIsNull() {
             addCriterion("job_type is null");
             return (Criteria) this;
@@ -459,6 +362,76 @@ public class JobDetailExample {
 
         public Criteria andJobTypeNotBetween(Integer value1, Integer value2) {
             addCriterion("job_type not between", value1, value2, "jobType");
+            return (Criteria) this;
+        }
+
+        public Criteria andJobMetricsIsNull() {
+            addCriterion("job_metrics is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andJobMetricsIsNotNull() {
+            addCriterion("job_metrics is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andJobMetricsEqualTo(String value) {
+            addCriterion("job_metrics =", value, "jobMetrics");
+            return (Criteria) this;
+        }
+
+        public Criteria andJobMetricsNotEqualTo(String value) {
+            addCriterion("job_metrics <>", value, "jobMetrics");
+            return (Criteria) this;
+        }
+
+        public Criteria andJobMetricsGreaterThan(String value) {
+            addCriterion("job_metrics >", value, "jobMetrics");
+            return (Criteria) this;
+        }
+
+        public Criteria andJobMetricsGreaterThanOrEqualTo(String value) {
+            addCriterion("job_metrics >=", value, "jobMetrics");
+            return (Criteria) this;
+        }
+
+        public Criteria andJobMetricsLessThan(String value) {
+            addCriterion("job_metrics <", value, "jobMetrics");
+            return (Criteria) this;
+        }
+
+        public Criteria andJobMetricsLessThanOrEqualTo(String value) {
+            addCriterion("job_metrics <=", value, "jobMetrics");
+            return (Criteria) this;
+        }
+
+        public Criteria andJobMetricsLike(String value) {
+            addCriterion("job_metrics like", value, "jobMetrics");
+            return (Criteria) this;
+        }
+
+        public Criteria andJobMetricsNotLike(String value) {
+            addCriterion("job_metrics not like", value, "jobMetrics");
+            return (Criteria) this;
+        }
+
+        public Criteria andJobMetricsIn(List<String> values) {
+            addCriterion("job_metrics in", values, "jobMetrics");
+            return (Criteria) this;
+        }
+
+        public Criteria andJobMetricsNotIn(List<String> values) {
+            addCriterion("job_metrics not in", values, "jobMetrics");
+            return (Criteria) this;
+        }
+
+        public Criteria andJobMetricsBetween(String value1, String value2) {
+            addCriterion("job_metrics between", value1, value2, "jobMetrics");
+            return (Criteria) this;
+        }
+
+        public Criteria andJobMetricsNotBetween(String value1, String value2) {
+            addCriterion("job_metrics not between", value1, value2, "jobMetrics");
             return (Criteria) this;
         }
 
@@ -663,52 +636,52 @@ public class JobDetailExample {
         }
 
         public Criteria andCreatTimeEqualTo(Date value) {
-            addCriterionForJDBCDate("creat_time =", value, "creatTime");
+            addCriterion("creat_time =", value, "creatTime");
             return (Criteria) this;
         }
 
         public Criteria andCreatTimeNotEqualTo(Date value) {
-            addCriterionForJDBCDate("creat_time <>", value, "creatTime");
+            addCriterion("creat_time <>", value, "creatTime");
             return (Criteria) this;
         }
 
         public Criteria andCreatTimeGreaterThan(Date value) {
-            addCriterionForJDBCDate("creat_time >", value, "creatTime");
+            addCriterion("creat_time >", value, "creatTime");
             return (Criteria) this;
         }
 
         public Criteria andCreatTimeGreaterThanOrEqualTo(Date value) {
-            addCriterionForJDBCDate("creat_time >=", value, "creatTime");
+            addCriterion("creat_time >=", value, "creatTime");
             return (Criteria) this;
         }
 
         public Criteria andCreatTimeLessThan(Date value) {
-            addCriterionForJDBCDate("creat_time <", value, "creatTime");
+            addCriterion("creat_time <", value, "creatTime");
             return (Criteria) this;
         }
 
         public Criteria andCreatTimeLessThanOrEqualTo(Date value) {
-            addCriterionForJDBCDate("creat_time <=", value, "creatTime");
+            addCriterion("creat_time <=", value, "creatTime");
             return (Criteria) this;
         }
 
         public Criteria andCreatTimeIn(List<Date> values) {
-            addCriterionForJDBCDate("creat_time in", values, "creatTime");
+            addCriterion("creat_time in", values, "creatTime");
             return (Criteria) this;
         }
 
         public Criteria andCreatTimeNotIn(List<Date> values) {
-            addCriterionForJDBCDate("creat_time not in", values, "creatTime");
+            addCriterion("creat_time not in", values, "creatTime");
             return (Criteria) this;
         }
 
         public Criteria andCreatTimeBetween(Date value1, Date value2) {
-            addCriterionForJDBCDate("creat_time between", value1, value2, "creatTime");
+            addCriterion("creat_time between", value1, value2, "creatTime");
             return (Criteria) this;
         }
 
         public Criteria andCreatTimeNotBetween(Date value1, Date value2) {
-            addCriterionForJDBCDate("creat_time not between", value1, value2, "creatTime");
+            addCriterion("creat_time not between", value1, value2, "creatTime");
             return (Criteria) this;
         }
     }

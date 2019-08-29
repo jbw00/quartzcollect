@@ -2,7 +2,6 @@ package com.hamusuta.quartzcollect.modle;
 
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.Iterator;
 import java.util.List;
 
 public class TriggerDetailExample {
@@ -104,32 +103,6 @@ public class TriggerDetailExample {
                 throw new RuntimeException("Between values for " + property + " cannot be null");
             }
             criteria.add(new Criterion(condition, value1, value2));
-        }
-
-        protected void addCriterionForJDBCDate(String condition, Date value, String property) {
-            if (value == null) {
-                throw new RuntimeException("Value for " + property + " cannot be null");
-            }
-            addCriterion(condition, new java.sql.Date(value.getTime()), property);
-        }
-
-        protected void addCriterionForJDBCDate(String condition, List<Date> values, String property) {
-            if (values == null || values.size() == 0) {
-                throw new RuntimeException("Value list for " + property + " cannot be null or empty");
-            }
-            List<java.sql.Date> dateList = new ArrayList<java.sql.Date>();
-            Iterator<Date> iter = values.iterator();
-            while (iter.hasNext()) {
-                dateList.add(new java.sql.Date(iter.next().getTime()));
-            }
-            addCriterion(condition, dateList, property);
-        }
-
-        protected void addCriterionForJDBCDate(String condition, Date value1, Date value2, String property) {
-            if (value1 == null || value2 == null) {
-                throw new RuntimeException("Between values for " + property + " cannot be null");
-            }
-            addCriterion(condition, new java.sql.Date(value1.getTime()), new java.sql.Date(value2.getTime()), property);
         }
 
         public Criteria andTriggerIdIsNull() {
@@ -402,6 +375,66 @@ public class TriggerDetailExample {
             return (Criteria) this;
         }
 
+        public Criteria andTriggerStepIsNull() {
+            addCriterion("trigger_step is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andTriggerStepIsNotNull() {
+            addCriterion("trigger_step is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andTriggerStepEqualTo(Integer value) {
+            addCriterion("trigger_step =", value, "triggerStep");
+            return (Criteria) this;
+        }
+
+        public Criteria andTriggerStepNotEqualTo(Integer value) {
+            addCriterion("trigger_step <>", value, "triggerStep");
+            return (Criteria) this;
+        }
+
+        public Criteria andTriggerStepGreaterThan(Integer value) {
+            addCriterion("trigger_step >", value, "triggerStep");
+            return (Criteria) this;
+        }
+
+        public Criteria andTriggerStepGreaterThanOrEqualTo(Integer value) {
+            addCriterion("trigger_step >=", value, "triggerStep");
+            return (Criteria) this;
+        }
+
+        public Criteria andTriggerStepLessThan(Integer value) {
+            addCriterion("trigger_step <", value, "triggerStep");
+            return (Criteria) this;
+        }
+
+        public Criteria andTriggerStepLessThanOrEqualTo(Integer value) {
+            addCriterion("trigger_step <=", value, "triggerStep");
+            return (Criteria) this;
+        }
+
+        public Criteria andTriggerStepIn(List<Integer> values) {
+            addCriterion("trigger_step in", values, "triggerStep");
+            return (Criteria) this;
+        }
+
+        public Criteria andTriggerStepNotIn(List<Integer> values) {
+            addCriterion("trigger_step not in", values, "triggerStep");
+            return (Criteria) this;
+        }
+
+        public Criteria andTriggerStepBetween(Integer value1, Integer value2) {
+            addCriterion("trigger_step between", value1, value2, "triggerStep");
+            return (Criteria) this;
+        }
+
+        public Criteria andTriggerStepNotBetween(Integer value1, Integer value2) {
+            addCriterion("trigger_step not between", value1, value2, "triggerStep");
+            return (Criteria) this;
+        }
+
         public Criteria andCreatTimeIsNull() {
             addCriterion("creat_time is null");
             return (Criteria) this;
@@ -413,52 +446,52 @@ public class TriggerDetailExample {
         }
 
         public Criteria andCreatTimeEqualTo(Date value) {
-            addCriterionForJDBCDate("creat_time =", value, "creatTime");
+            addCriterion("creat_time =", value, "creatTime");
             return (Criteria) this;
         }
 
         public Criteria andCreatTimeNotEqualTo(Date value) {
-            addCriterionForJDBCDate("creat_time <>", value, "creatTime");
+            addCriterion("creat_time <>", value, "creatTime");
             return (Criteria) this;
         }
 
         public Criteria andCreatTimeGreaterThan(Date value) {
-            addCriterionForJDBCDate("creat_time >", value, "creatTime");
+            addCriterion("creat_time >", value, "creatTime");
             return (Criteria) this;
         }
 
         public Criteria andCreatTimeGreaterThanOrEqualTo(Date value) {
-            addCriterionForJDBCDate("creat_time >=", value, "creatTime");
+            addCriterion("creat_time >=", value, "creatTime");
             return (Criteria) this;
         }
 
         public Criteria andCreatTimeLessThan(Date value) {
-            addCriterionForJDBCDate("creat_time <", value, "creatTime");
+            addCriterion("creat_time <", value, "creatTime");
             return (Criteria) this;
         }
 
         public Criteria andCreatTimeLessThanOrEqualTo(Date value) {
-            addCriterionForJDBCDate("creat_time <=", value, "creatTime");
+            addCriterion("creat_time <=", value, "creatTime");
             return (Criteria) this;
         }
 
         public Criteria andCreatTimeIn(List<Date> values) {
-            addCriterionForJDBCDate("creat_time in", values, "creatTime");
+            addCriterion("creat_time in", values, "creatTime");
             return (Criteria) this;
         }
 
         public Criteria andCreatTimeNotIn(List<Date> values) {
-            addCriterionForJDBCDate("creat_time not in", values, "creatTime");
+            addCriterion("creat_time not in", values, "creatTime");
             return (Criteria) this;
         }
 
         public Criteria andCreatTimeBetween(Date value1, Date value2) {
-            addCriterionForJDBCDate("creat_time between", value1, value2, "creatTime");
+            addCriterion("creat_time between", value1, value2, "creatTime");
             return (Criteria) this;
         }
 
         public Criteria andCreatTimeNotBetween(Date value1, Date value2) {
-            addCriterionForJDBCDate("creat_time not between", value1, value2, "creatTime");
+            addCriterion("creat_time not between", value1, value2, "creatTime");
             return (Criteria) this;
         }
     }

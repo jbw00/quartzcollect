@@ -9,9 +9,9 @@ public class JobDetail {
 
     private String jobGroup;
 
-    private String jobMetric;
-
     private Integer jobType;
+
+    private String jobMetrics;
 
     private String jobClassName;
 
@@ -45,20 +45,20 @@ public class JobDetail {
         this.jobGroup = jobGroup == null ? null : jobGroup.trim();
     }
 
-    public String getJobMetric() {
-        return jobMetric;
-    }
-
-    public void setJobMetric(String jobMetric) {
-        this.jobMetric = jobMetric == null ? null : jobMetric.trim();
-    }
-
     public Integer getJobType() {
         return jobType;
     }
 
     public void setJobType(Integer jobType) {
         this.jobType = jobType;
+    }
+
+    public String getJobMetrics() {
+        return jobMetrics;
+    }
+
+    public void setJobMetrics(String jobMetrics) {
+        this.jobMetrics = jobMetrics == null ? null : jobMetrics.trim();
     }
 
     public String getJobClassName() {

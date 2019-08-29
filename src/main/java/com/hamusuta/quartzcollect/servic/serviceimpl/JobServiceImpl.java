@@ -1,9 +1,13 @@
 package com.hamusuta.quartzcollect.servic.serviceimpl;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.hamusuta.quartzcollect.dao.JobDetailMapper;
 import com.hamusuta.quartzcollect.modle.JobDetail;
 import com.hamusuta.quartzcollect.modle.JobDetailExample;
+import com.hamusuta.quartzcollect.vo.JobAndTriggerVo;
 import com.hamusuta.quartzcollect.servic.JobService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -27,4 +31,13 @@ public class JobServiceImpl implements JobService {
         List<JobDetail> jobDetails = jobDetailMapper.selectByExample(jobDetailExample);
         return jobDetails;
     }
+
+    @Override
+    public PageInfo<JobAndTriggerVo> getJobAndTriggerDetails(Integer pageNum, Integer pageSize) {
+        PageHelper.startPage(pageNum, pageSize);
+        List<JobAndTriggerVo> list = jobDetailMapper.queryJobAndTriggerDetails();
+        PageInfo<JobAndTriggerVo> page = new PageInfo(list);
+        return page;
+    }
+
 }

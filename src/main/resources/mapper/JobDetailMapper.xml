@@ -5,12 +5,12 @@
     <id column="job_id" jdbcType="INTEGER" property="jobId" />
     <result column="job_name" jdbcType="VARCHAR" property="jobName" />
     <result column="job_group" jdbcType="VARCHAR" property="jobGroup" />
-    <result column="job_metric" jdbcType="VARCHAR" property="jobMetric" />
     <result column="job_type" jdbcType="INTEGER" property="jobType" />
+    <result column="job_metrics" jdbcType="VARCHAR" property="jobMetrics" />
     <result column="job_class_name" jdbcType="VARCHAR" property="jobClassName" />
     <result column="job_trigger" jdbcType="INTEGER" property="jobTrigger" />
     <result column="job_status" jdbcType="INTEGER" property="jobStatus" />
-    <result column="creat_time" jdbcType="DATE" property="creatTime" />
+    <result column="creat_time" jdbcType="TIMESTAMP" property="creatTime" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -71,8 +71,8 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    job_id, job_name, job_group, job_metric, job_type, job_class_name, job_trigger, job_status, 
-    creat_time
+    job_id, job_name, job_group, job_type, job_metrics, job_class_name, job_trigger, 
+    job_status, creat_time
   </sql>
   <select id="selectByExample" parameterType="com.hamusuta.quartzcollect.modle.JobDetailExample" resultMap="BaseResultMap">
     select
@@ -106,12 +106,12 @@
   </delete>
   <insert id="insert" parameterType="com.hamusuta.quartzcollect.modle.JobDetail">
     insert into job_detail (job_id, job_name, job_group, 
-      job_metric, job_type, job_class_name, 
+      job_type, job_metrics, job_class_name, 
       job_trigger, job_status, creat_time
       )
     values (#{jobId,jdbcType=INTEGER}, #{jobName,jdbcType=VARCHAR}, #{jobGroup,jdbcType=VARCHAR}, 
-      #{jobMetric,jdbcType=VARCHAR}, #{jobType,jdbcType=INTEGER}, #{jobClassName,jdbcType=VARCHAR}, 
-      #{jobTrigger,jdbcType=INTEGER}, #{jobStatus,jdbcType=INTEGER}, #{creatTime,jdbcType=DATE}
+      #{jobType,jdbcType=INTEGER}, #{jobMetrics,jdbcType=VARCHAR}, #{jobClassName,jdbcType=VARCHAR}, 
+      #{jobTrigger,jdbcType=INTEGER}, #{jobStatus,jdbcType=INTEGER}, #{creatTime,jdbcType=TIMESTAMP}
       )
   </insert>
   <insert id="insertSelective" parameterType="com.hamusuta.quartzcollect.modle.JobDetail">
@@ -126,11 +126,11 @@
       <if test="jobGroup != null">
         job_group,
       </if>
-      <if test="jobMetric != null">
-        job_metric,
-      </if>
       <if test="jobType != null">
         job_type,
+      </if>
+      <if test="jobMetrics != null">
+        job_metrics,
       </if>
       <if test="jobClassName != null">
         job_class_name,
@@ -155,11 +155,11 @@
       <if test="jobGroup != null">
         #{jobGroup,jdbcType=VARCHAR},
       </if>
-      <if test="jobMetric != null">
-        #{jobMetric,jdbcType=VARCHAR},
-      </if>
       <if test="jobType != null">
         #{jobType,jdbcType=INTEGER},
+      </if>
+      <if test="jobMetrics != null">
+        #{jobMetrics,jdbcType=VARCHAR},
       </if>
       <if test="jobClassName != null">
         #{jobClassName,jdbcType=VARCHAR},
@@ -171,7 +171,7 @@
         #{jobStatus,jdbcType=INTEGER},
       </if>
       <if test="creatTime != null">
-        #{creatTime,jdbcType=DATE},
+        #{creatTime,jdbcType=TIMESTAMP},
       </if>
     </trim>
   </insert>
@@ -193,11 +193,11 @@
       <if test="record.jobGroup != null">
         job_group = #{record.jobGroup,jdbcType=VARCHAR},
       </if>
-      <if test="record.jobMetric != null">
-        job_metric = #{record.jobMetric,jdbcType=VARCHAR},
-      </if>
       <if test="record.jobType != null">
         job_type = #{record.jobType,jdbcType=INTEGER},
+      </if>
+      <if test="record.jobMetrics != null">
+        job_metrics = #{record.jobMetrics,jdbcType=VARCHAR},
       </if>
       <if test="record.jobClassName != null">
         job_class_name = #{record.jobClassName,jdbcType=VARCHAR},
@@ -209,7 +209,7 @@
         job_status = #{record.jobStatus,jdbcType=INTEGER},
       </if>
       <if test="record.creatTime != null">
-        creat_time = #{record.creatTime,jdbcType=DATE},
+        creat_time = #{record.creatTime,jdbcType=TIMESTAMP},
       </if>
     </set>
     <if test="_parameter != null">
@@ -221,12 +221,12 @@
     set job_id = #{record.jobId,jdbcType=INTEGER},
       job_name = #{record.jobName,jdbcType=VARCHAR},
       job_group = #{record.jobGroup,jdbcType=VARCHAR},
-      job_metric = #{record.jobMetric,jdbcType=VARCHAR},
       job_type = #{record.jobType,jdbcType=INTEGER},
+      job_metrics = #{record.jobMetrics,jdbcType=VARCHAR},
       job_class_name = #{record.jobClassName,jdbcType=VARCHAR},
       job_trigger = #{record.jobTrigger,jdbcType=INTEGER},
       job_status = #{record.jobStatus,jdbcType=INTEGER},
-      creat_time = #{record.creatTime,jdbcType=DATE}
+      creat_time = #{record.creatTime,jdbcType=TIMESTAMP}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -240,11 +240,11 @@
       <if test="jobGroup != null">
         job_group = #{jobGroup,jdbcType=VARCHAR},
       </if>
-      <if test="jobMetric != null">
-        job_metric = #{jobMetric,jdbcType=VARCHAR},
-      </if>
       <if test="jobType != null">
         job_type = #{jobType,jdbcType=INTEGER},
+      </if>
+      <if test="jobMetrics != null">
+        job_metrics = #{jobMetrics,jdbcType=VARCHAR},
       </if>
       <if test="jobClassName != null">
         job_class_name = #{jobClassName,jdbcType=VARCHAR},
@@ -256,7 +256,7 @@
         job_status = #{jobStatus,jdbcType=INTEGER},
       </if>
       <if test="creatTime != null">
-        creat_time = #{creatTime,jdbcType=DATE},
+        creat_time = #{creatTime,jdbcType=TIMESTAMP},
       </if>
     </set>
     where job_id = #{jobId,jdbcType=INTEGER}
@@ -265,12 +265,37 @@
     update job_detail
     set job_name = #{jobName,jdbcType=VARCHAR},
       job_group = #{jobGroup,jdbcType=VARCHAR},
-      job_metric = #{jobMetric,jdbcType=VARCHAR},
       job_type = #{jobType,jdbcType=INTEGER},
+      job_metrics = #{jobMetrics,jdbcType=VARCHAR},
       job_class_name = #{jobClassName,jdbcType=VARCHAR},
       job_trigger = #{jobTrigger,jdbcType=INTEGER},
       job_status = #{jobStatus,jdbcType=INTEGER},
-      creat_time = #{creatTime,jdbcType=DATE}
+      creat_time = #{creatTime,jdbcType=TIMESTAMP}
     where job_id = #{jobId,jdbcType=INTEGER}
   </update>
+
+  <resultMap id="JobAndTriggerVo" type="com.hamusuta.quartzcollect.vo.JobAndTriggerVo">
+    <result column="job_name" jdbcType="VARCHAR" property="JOB_NAME" />
+    <result column="job_group" jdbcType="VARCHAR" property="JOB_GROUP" />
+    <result column="job_class_name" jdbcType="VARCHAR" property="JOB_CLASS_NAME" />
+    <result column="trigger_name" jdbcType="VARCHAR" property="TRIGGER_NAME" />
+    <result column="trigger_group" jdbcType="VARCHAR" property="TRIGGER_GROUP" />
+    <result column="cron_expression" jdbcType="VARCHAR" property="CRON_EXPRESSION" />
+  </resultMap>
+
+  <select id="queryJobAndTriggerDetails" resultMap="JobAndTriggerVo">
+    SELECT
+    	job_name,
+    	job_group,
+    	job_class_name,
+    	trigger_name,
+    	trigger_group,
+    	cron_expression
+    FROM
+    	job_detail
+    LEFT JOIN trigger_detail ON job_detail.job_trigger = trigger_detail.trigger_id
+    WHERE
+    	job_detail.job_status = 1
+  </select>
+
 </mapper>

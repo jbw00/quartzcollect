@@ -3,11 +3,10 @@ package com.hamusuta.quartzcollect.dao;
 import com.hamusuta.quartzcollect.modle.JobDetail;
 import com.hamusuta.quartzcollect.modle.JobDetailExample;
 import java.util.List;
+
+import com.hamusuta.quartzcollect.vo.JobAndTriggerVo;
 import org.apache.ibatis.annotations.Param;
-import org.springframework.stereotype.Repository;
 
-
-@Repository
 public interface JobDetailMapper {
     long countByExample(JobDetailExample example);
 
@@ -30,4 +29,11 @@ public interface JobDetailMapper {
     int updateByPrimaryKeySelective(JobDetail record);
 
     int updateByPrimaryKey(JobDetail record);
+
+
+    /**
+     * 关联查询job与trigger详情
+     * @return
+     */
+    List<JobAndTriggerVo> queryJobAndTriggerDetails();
 }

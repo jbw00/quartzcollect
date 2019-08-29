@@ -9,7 +9,7 @@ import org.quartz.*;
  */
 @PersistJobDataAfterExecution
 @DisallowConcurrentExecution
-public interface StatefulBaseJob extends Job {
+public interface StatefulBaseJob extends JobInt {
 
     String JOB_GROUP = "synchronous";
 
