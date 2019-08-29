@@ -10,9 +10,10 @@ import java.util.List;
 public interface TriggerService {
 
     /**
-     * 获取TriggerDetail
+     * 根据triggerid获取TriggerDetail
+     * @param triggerId
      * @return
      */
-    List<TriggerDetail> getTriggerDetail();
+    TriggerDetail getTriggerDetailById(Integer triggerId);
 
 }

@@ -4,7 +4,10 @@ import com.hamusuta.quartzcollect.modle.JobDetail;
 import com.hamusuta.quartzcollect.modle.JobDetailExample;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Repository;
 
+
+@Repository
 public interface JobDetailMapper {
     long countByExample(JobDetailExample example);
 

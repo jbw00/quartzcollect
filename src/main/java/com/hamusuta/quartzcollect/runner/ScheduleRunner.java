@@ -1,6 +1,9 @@
 package com.hamusuta.quartzcollect.runner;
 
 import com.hamusuta.quartzcollect.job.BaseJob;
+import com.hamusuta.quartzcollect.modle.TriggerDetail;
+import com.hamusuta.quartzcollect.servic.JobService;
+import com.hamusuta.quartzcollect.servic.TriggerService;
 import com.hamusuta.quartzcollect.trigger.triggerimpl.CronTrigger;
 import org.quartz.*;
 import org.quartz.impl.StdSchedulerFactory;
@@ -11,6 +14,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 /**
  * @author hamusuta
@@ -20,14 +24,26 @@ public class ScheduleRunner implements ApplicationRunner {
 
     @Autowired
     private CronTrigger cronTrigger;
+    @Autowired
+    private JobService jobService;
+    @Autowired
+    private TriggerService triggerService;
 
     @Override
     public void run(ApplicationArguments args) throws Exception {
         //TODO-bw 查询启用状态的任务并执行
-
-
-
-
+        List<com.hamusuta.quartzcollect.modle.JobDetail> usefulJobDetail = jobService.getUsefulJobDetail();
+        for (com.hamusuta.quartzcollect.modle.JobDetail jobDetail : usefulJobDetail) {
+            Integer jobTriggerId = jobDetail.getJobTrigger();
+            TriggerDetail triggerDetail = triggerService.getTriggerDetailById(jobTriggerId);
+            //执行job任务
+            runJob(jobDetail.getJobClassName(),
+                    jobDetail.getJobName(),
+                    jobDetail.getJobGroup(),
+                    triggerDetail.getTriggerName(),
+                    triggerDetail.getTriggerGroup(),
+                    triggerDetail.getCronExpression());
+        }
     }
 
     /**
