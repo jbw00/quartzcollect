@@ -31,7 +31,7 @@ mybatis:
 #--------------------------配置任务执行地址
 job:
   http:
-    baidu: www.baidu.com
+    baidu: https://www.baidu.com
 
 #---------------------------模拟推送数据用户
 pushdata:

@@ -95,6 +95,7 @@ public class ScheduleRunner implements ApplicationRunner {
             scheduler.scheduleJob(jobDetail, trigger);
             scheduler.start();
         }catch (Exception e){
+            logger.error("===========================>"+ e);
             throw new RuntimeException("构建定时器失败！");
         }
     }

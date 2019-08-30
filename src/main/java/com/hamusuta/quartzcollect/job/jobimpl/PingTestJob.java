@@ -7,10 +7,14 @@ import com.hamusuta.quartzcollect.util.PushDataUtil;
 import com.hamusuta.quartzcollect.util.TimeUtil;
 import com.hamusuta.quartzcollect.vo.FalconVo;
 import org.quartz.JobDetail;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Configurable;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.PostConstruct;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -20,6 +24,7 @@ import java.util.List;
  * @author hamusuta
  */
 @Component
+@Configurable
 public class PingTestJob extends BaseJob {
 
     //初始化组别
@@ -33,12 +38,24 @@ public class PingTestJob extends BaseJob {
     @Value("${job.http.baidu}")
     private String url;
 
+    private static Logger logger = LoggerFactory.getLogger(PingTestJob.class);
+
+    /**
+     * 防止通过反射无法注入相关参数
+     */
+    public static PingTestJob dynamicProxy;
+    @PostConstruct
+    public void init() {
+        logger.info("PingTestJob init");
+        dynamicProxy = this;
+    }
+
     @Override
     protected HashMap<String, Object> getResult(JobDetail detail) {
         HashMap<String, Object> resultMap = new HashMap(2);
 
         //TODO-bw 实现httpjob获取值相关操作 非必传参数如请求地址请在配置文件中配置
-        Integer integer = DialingUtil.dialingTest(url);
+        Integer integer = DialingUtil.dialingTest(dynamicProxy.url);
         resultMap.put("value", integer);
         return resultMap;
     }
@@ -63,9 +80,9 @@ public class PingTestJob extends BaseJob {
         Date pushDate = TimeUtil.getPushDate();
 
         //TODO-bw 实现falconvo构建及推送
-        FalconVo falconVo = pushDataUtil.voConstructor(pushDate, metric, value, tags, step, endpoint);
+        FalconVo falconVo = dynamicProxy.pushDataUtil.voConstructor(pushDate, metric, value, tags, step, endpoint);
         List<FalconVo> pushList = new ArrayList(1);
         pushList.add(falconVo);
-        pushDataUtil.pushToFalcon(pushList);
+        dynamicProxy.pushDataUtil.pushToFalcon(pushList);
     }
 }
