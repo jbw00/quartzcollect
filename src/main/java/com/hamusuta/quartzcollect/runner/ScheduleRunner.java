@@ -1,7 +1,6 @@
 package com.hamusuta.quartzcollect.runner;
 
 import com.hamusuta.quartzcollect.job.BaseJob;
-import com.hamusuta.quartzcollect.job.JobInt;
 import com.hamusuta.quartzcollect.modle.TriggerDetail;
 import com.hamusuta.quartzcollect.servic.JobService;
 import com.hamusuta.quartzcollect.servic.TriggerService;
