@@ -75,4 +75,8 @@ public class JobController {
         return map;
     }
 
+    /**
+     * 预留删除操作（更改任务状态为0）
+     */
+
 }
