@@ -10,7 +10,7 @@ spring:
     #-------------------------------数据库连接
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://192.168.137.143:3307/quartz?useUnicode=true&characterEncoding=UTF-8
+    url: jdbc:mysql://192.168.137.143:3307/quartz?useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true
     username: root
     password: test123456
     #--------------------------使用druid数据源

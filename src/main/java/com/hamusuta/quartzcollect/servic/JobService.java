@@ -23,4 +23,11 @@ public interface JobService {
      */
     PageInfo<JobAndTriggerVo> getJobAndTriggerDetails(Integer pageNum, Integer pageSize);
 
+    /**
+     * 删除job任务（1=>0）
+     * @param jobName
+     * @param jobGroup
+     */
+    void deleteJob(String jobName, String jobGroup);
+
 }

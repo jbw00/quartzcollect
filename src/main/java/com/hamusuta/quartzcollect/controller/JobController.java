@@ -5,6 +5,7 @@ import com.hamusuta.quartzcollect.vo.JobAndTriggerVo;
 import com.hamusuta.quartzcollect.servic.JobService;
 import org.quartz.JobKey;
 import org.quartz.Scheduler;
+import org.quartz.TriggerKey;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.*;
@@ -78,5 +79,18 @@ public class JobController {
     /**
      * 预留删除操作（更改任务状态为0）
      */
+    @PostMapping(value="/deletejob")
+    public void deletejob(@RequestParam(value="jobClassName")String jobClassName, @RequestParam(value="jobGroupName")String jobGroupName) throws Exception
+    {
+        jobdelete(jobClassName, jobGroupName);
+    }
+
+    private void jobdelete(String jobClassName, String jobGroupName) throws Exception
+    {
+        scheduler.pauseTrigger(TriggerKey.triggerKey(jobClassName, jobGroupName));
+        scheduler.unscheduleJob(TriggerKey.triggerKey(jobClassName, jobGroupName));
+        scheduler.deleteJob(JobKey.jobKey(jobClassName, jobGroupName));
+        jobService.deleteJob(jobClassName, jobGroupName);
+    }
 
 }

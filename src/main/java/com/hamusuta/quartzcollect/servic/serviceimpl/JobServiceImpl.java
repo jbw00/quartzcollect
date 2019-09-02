@@ -10,6 +10,7 @@ import com.hamusuta.quartzcollect.servic.JobService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -38,6 +39,21 @@ public class JobServiceImpl implements JobService {
         List<JobAndTriggerVo> list = jobDetailMapper.queryJobAndTriggerDetails();
         PageInfo<JobAndTriggerVo> page = new PageInfo(list);
         return page;
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public void deleteJob(String jobName, String jobGroup) {
+        JobDetailExample jobDetailExample = new JobDetailExample();
+        JobDetailExample.Criteria criteria = jobDetailExample.createCriteria();
+        //查询处于激活状态的job
+        criteria.andJobStatusEqualTo(1);
+        criteria.andJobNameEqualTo(jobName);
+        criteria.andJobGroupEqualTo(jobGroup);
+        JobDetail jobDetail = new JobDetail();
+        jobDetail.setJobStatus(0);
+
+        jobDetailMapper.updateByExampleSelective(jobDetail, jobDetailExample);
     }
 
 }

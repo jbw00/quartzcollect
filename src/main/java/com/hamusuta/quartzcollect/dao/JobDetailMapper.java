@@ -6,7 +6,9 @@ import java.util.List;
 
 import com.hamusuta.quartzcollect.vo.JobAndTriggerVo;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public interface JobDetailMapper {
     long countByExample(JobDetailExample example);
 
